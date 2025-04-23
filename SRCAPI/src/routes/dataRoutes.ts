@@ -13,6 +13,7 @@ router.get('/fetchContent', async (req: Request, res: Response) => {
 		const name: string = req.query.name as string || '';
 
 		const content = await fetchQueryTorrent(page, name) || [];
+		console.log(`✅ ${content.length.toString()} éléments trouvé pour la page ${page.toString()} et le nom ${name}`)
 		res.json(content);
 	} catch (err) {
 		console.error('Erreur /fetchContent :', err);
@@ -28,6 +29,7 @@ router.get('/downloadUrl', (req: Request, res: Response) => {
 
 		if (id && passKey && passKey.length > 10) {
 			result.url = `https://yggapi.eu/torrent/${id}/download?passkey=${passKey}`;
+			console.log(`✅ url trouvé : ${result.url}`)
 		} else {
 			console.warn('❌ ID ou passkey invalide ou manquante');
 		}
